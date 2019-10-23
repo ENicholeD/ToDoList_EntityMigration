@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,10 +25,24 @@ namespace ToDoList
 
     public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            services
-              .AddDbContext<ToDoListContext>(options => options
-              .UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]));
+          services.AddMvc();
+          services
+          .AddDbContext<ToDoListContext>(options => options
+          .UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]));
+
+          services.AddIdentity<ApplicationUser, IdentityRole>()
+          .AddEntityFrameworkStores<ToDoListContext>()
+          .AddDefaultTokenProviders();
+
+          services.Configure<IdentityOptions>(options =>
+          {
+            options.Password.RequireDigit = false;
+            options.Password.RequiredLength = 0;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredUniqueChars = 0;
+          });
         }
 
     public void Configure(IApplicationBuilder app)
@@ -35,6 +50,8 @@ namespace ToDoList
       app.UseStaticFiles();
 
       app.UseDeveloperExceptionPage();
+
+       app.UseAuthentication();
 
       app.UseMvc(routes =>
       {
