@@ -9,15 +9,14 @@ using ToDoList.Models;
 namespace ToDoList.Migrations
 {
     [DbContext(typeof(ToDoListContext))]
-    [Migration("20191021211928_ViewsForItemsProperties")]
-    partial class ViewsForItemsProperties
+    [Migration("20191023180053_initials")]
+    partial class initials
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
             modelBuilder.Entity("ToDoList.Models.Category", b =>
                 {

@@ -23,13 +23,12 @@ namespace ToDoList
     public IConfigurationRoot Configuration { get; set; }
 
     public void ConfigureServices(IServiceCollection services)
-    {
-      services.AddMvc();
-
-      services.AddEntityFrameworkMySql()
-        .AddDbContext<ToDoListContext>(options => options
-        .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
-    }
+        {
+            services.AddMvc();
+            services
+              .AddDbContext<ToDoListContext>(options => options
+              .UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]));
+        }
 
     public void Configure(IApplicationBuilder app)
     {

@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ToDoList.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initials : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace ToDoList.Migrations
                 columns: table => new
                 {
                     CategoryId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -25,8 +25,10 @@ namespace ToDoList.Migrations
                 columns: table => new
                 {
                     ItemId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(nullable: true)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Description = table.Column<string>(nullable: true),
+                    IsCompleted = table.Column<bool>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,7 +40,7 @@ namespace ToDoList.Migrations
                 columns: table => new
                 {
                     CategoryItemId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ItemId = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false)
                 },
